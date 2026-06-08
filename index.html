@@ -1,129 +1,203 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clé Connect - Accueil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .tool-card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clé Connect – L’essentiel au bout d’une clé</title>
+  <style>
+    /* === RESET & BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* === HEADER === */
+    .main-header {
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand img {
+      height: 40px;
+      width: auto;
+    }
+    .brand h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0f172a;
+    }
+    .brand span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #475569;
+      margin-left: 0.5rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 500;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .nav-links a:hover {
+      background: #e2e8f0;
+    }
+    .btn-presentation {
+      background: #0f172a;
+      color: white !important;
+      padding: 0.5rem 1.2rem !important;
+      border-radius: 999px !important;
+    }
+
+    /* === HERO === */
+    .hero {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-logo {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    .hero h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .hero p {
+      color: #475569;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* === TOOLS GRID === */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem 2rem 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .tool-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+    }
+    .tool-icon {
+      font-size: 2rem;
+    }
+    .tool-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .tool-card p {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    /* === FOOTER === */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 1.5rem;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="bg-slate-900 text-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="https://raw.githubusercontent.com/exaucenapopolo/Cl--connect/refs/heads/main/logo.jpg" alt="Clé Connect Logo" class="h-12 w-12 rounded-full border-2 border-amber-500 object-cover">
-                <div>
-                    <h1 class="text-2xl font-bold tracking-tight text-amber-500">Clé Connect</h1>
-                    <p class="text-xs text-gray-400 italic">L’essentiel au bout d’une clé</p>
-                </div>
-            </a>
-            <nav class="flex gap-6 text-sm font-medium">
-                <a href="index.html" class="hover:text-amber-500 transition-colors"><i class="fas fa-th-large mr-1"></i> Outils</a>
-                <a href="presentation.html" class="hover:text-amber-500 transition-colors"><i class="fas fa-info-circle mr-1"></i> Présentation</a>
-            </nav>
-        </div>
-    </header>
-    <main class="flex-grow container mx-auto px-4 py-8">
+<body>
+  <header class="main-header">
+    <a href="index.html" class="brand">
+      <img src="https://raw.githubusercontent.com/exaucenapopolo/Cl--connect/refs/heads/main/logo.jpg" alt="Clé Connect Logo">
+      <h1>Clé Connect <span>| L’essentiel au bout d’une clé</span></h1>
+    </a>
+    <nav class="nav-links">
+      <a href="outils/devises.html">Devises</a>
+      <a href="outils/crypto.html">Crypto</a>
+      <a href="outils/unites.html">Unités</a>
+      <a href="outils/compteur.html">Compteur</a>
+      <a href="presentation.html" class="btn-presentation">Présentation</a>
+    </nav>
+  </header>
 
-<div class="text-center max-w-2xl mx-auto mb-10">
-    <h2 class="text-3xl font-extrabold text-slate-800 sm:text-4xl">Accès immédiat à vos outils du quotidien</h2>
-    <p class="mt-3 text-lg text-gray-600">Pas d'inscription, pas de publicité intrusive, juste l'efficacité brute.</p>
-</div>
+  <main>
+    <section class="hero">
+      <img src="https://raw.githubusercontent.com/exaucenapopolo/Cl--connect/refs/heads/main/logo.jpg" alt="Logo Clé Connect" class="hero-logo">
+      <h2>L’essentiel au bout d’une clé</h2>
+      <p>Accédez directement à des outils simples, rapides et utiles. Sans inscription, sans friction.</p>
+    </section>
 
-<!-- Tools Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-    <!-- Card 1 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fas fa-money-bill-wave"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Convertisseur de devises</h3>
-            <p class="text-gray-600 text-sm mb-4">Convertissez instantanément vos monnaies avec une mise en avant des devises africaines (XOF, XAF, NGN, ZAR...) et internationales.</p>
-        </div>
-        <a href="convertisseur-devises.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
+    <div class="tools-grid">
+      <a href="outils/devises.html" class="tool-card">
+        <div class="tool-icon">💱</div>
+        <h3>Convertisseur de devises</h3>
+        <p>Devises africaines et internationales, conversion instantanée.</p>
+      </a>
+      <a href="outils/crypto.html" class="tool-card">
+        <div class="tool-icon">₿</div>
+        <h3>Crypto / Fiat</h3>
+        <p>Convertissez entre cryptomonnaies et monnaies classiques.</p>
+      </a>
+      <a href="outils/unites.html" class="tool-card">
+        <div class="tool-icon">📏</div>
+        <h3>Convertisseur d’unités</h3>
+        <p>Longueur, poids, température, volume… tout y est.</p>
+      </a>
+      <a href="outils/financieres.html" class="tool-card">
+        <div class="tool-icon">📊</div>
+        <h3>Calculatrices financières</h3>
+        <p>Intérêts, pourcentages, calculs rapides du quotidien.</p>
+      </a>
+      <a href="outils/compteur.html" class="tool-card">
+        <div class="tool-icon">📝</div>
+        <h3>Compteur de mots</h3>
+        <p>Analysez vos textes en temps réel (mots, caractères).</p>
+      </a>
+      <a href="outils/fuseaux.html" class="tool-card">
+        <div class="tool-icon">🕒</div>
+        <h3>Fuseaux horaires</h3>
+        <p>Comparez l’heure entre plusieurs villes du monde.</p>
+      </a>
     </div>
+  </main>
 
-    <!-- Card 2 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fab fa-bitcoin"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Convertisseur Crypto / Fiat</h3>
-            <p class="text-gray-600 text-sm mb-4">Suivez et calculez la valeur de vos crypto-monnaies préférées (BTC, ETH, SOL...) directement en monnaies fiduciaires traditionnelles.</p>
-        </div>
-        <a href="convertisseur-crypto.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fas fa-ruler-combined"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Convertisseur d'unités</h3>
-            <p class="text-gray-600 text-sm mb-4">Un outil intuitif organisé par catégories pour convertir rapidement les longueurs, masses, volumes et températures essentiels.</p>
-        </div>
-        <a href="convertisseur-unites.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fas fa-calculator"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Calculatrices financières</h3>
-            <p class="text-gray-600 text-sm mb-4">Calculez facilement vos mensualités de prêt ou vos marges commerciales bénéficiaires grâce à des indicateurs clairs.</p>
-        </div>
-        <a href="calculatrice-financiere.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fas fa-file-alt"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Compteur de mots & caractères</h3>
-            <p class="text-gray-600 text-sm mb-4">Idéal pour les rédacteurs, étudiants et créateurs. Analyse en temps réel de la longueur, des mots et du temps de lecture.</p>
-        </div>
-        <a href="compteur-mots.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
-    </div>
-
-    <!-- Card 6 -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 tool-card flex flex-col justify-between">
-        <div>
-            <div class="h-12 w-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                <i class="fas fa-globe-africa"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Fuseaux horaires</h3>
-            <p class="text-gray-600 text-sm mb-4">Comparez rapidement les heures locales entre différentes zones géographiques mondiales pour organiser vos réunions.</p>
-        </div>
-        <a href="fuseaux-horaires.html" class="w-full text-center bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-amber-500 hover:text-slate-950 transition-all block">Ouvrir l'outil</a>
-    </div>
-</div>
-    </main>
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-gray-400 text-sm py-6 border-t border-slate-800">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <span class="font-bold text-amber-500">Clé Connect</span> &copy; 2026 - Plateforme d'outils utilitaires gratuits.
-            </div>
-            <div class="flex gap-4">
-                <a href="presentation.html" class="hover:text-white transition-colors">À propos</a>
-                <span class="text-slate-700">|</span>
-                <span class="text-xs italic text-gray-500">Expérience fluide, directe et sans inscription.</span>
-            </div>
-        </div>
-    </footer>
+  <footer>
+    © 2026 Clé Connect – Simple, rapide, gratuit.
+  </footer>
 </body>
 </html>
