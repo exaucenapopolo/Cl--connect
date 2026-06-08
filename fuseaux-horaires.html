@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clé Connect - Fuseaux horaires</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tool-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-slate-900 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://raw.githubusercontent.com/exaucenapopolo/Cl--connect/refs/heads/main/logo.jpg" alt="Clé Connect Logo" class="h-12 w-12 rounded-full border-2 border-amber-500 object-cover">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-amber-500">Clé Connect</h1>
+                    <p class="text-xs text-gray-400 italic">L’essentiel au bout d’une clé</p>
+                </div>
+            </a>
+            <nav class="flex gap-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-amber-500 transition-colors"><i class="fas fa-th-large mr-1"></i> Outils</a>
+                <a href="presentation.html" class="hover:text-amber-500 transition-colors"><i class="fas fa-info-circle mr-1"></i> Présentation</a>
+            </nav>
+        </div>
+    </header>
+    <main class="flex-grow container mx-auto px-4 py-8">
+
+<div class="max-w-xl mx-auto bg-white rounded-xl shadow-md border border-gray-100 p-6">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="h-10 w-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl">
+            <i class="fas fa-globe-africa"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-800">Convertisseur de fuseaux horaires</h2>
+    </div>
+
+    <div class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Sélectionner une heure (Heure locale)</label>
+            <input type="time" id="baseTime" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+
+        <div class="border-t border-gray-100 pt-4 space-y-3">
+            <h4 class="text-sm font-bold text-slate-700 mb-2">Correspondances mondiales :</h4>
+            
+            <div class="flex justify-between items-center p-2.5 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-medium text-gray-700">Afrique Centrale / Ouest (WAT - UTC+1)</span>
+                <span class="font-bold text-slate-900" id="timeWAT">--:--</span>
+            </div>
+            
+            <div class="flex justify-between items-center p-2.5 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-medium text-gray-700">Europe Centrale (CET - UTC+1 / UTC+2 DST)</span>
+                <span class="font-bold text-slate-900" id="timeCET">--:--</span>
+            </div>
+
+            <div class="flex justify-between items-center p-2.5 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-medium text-gray-700">Heure Universelle (UTC / GMT)</span>
+                <span class="font-bold text-slate-900" id="timeUTC">--:--</span>
+            </div>
+
+            <div class="flex justify-between items-center p-2.5 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-medium text-gray-700">Est Américain (EST - UTC-5)</span>
+                <span class="font-bold text-slate-900" id="timeEST">--:--</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configurer l'heure actuelle par défaut
+    const now = new Date();
+    const currentHours = String(now.getHours()).padStart(2, '0');
+    const currentMinutes = String(now.getMinutes()).padStart(2, '0');
+    const timeInput = document.getElementById('baseTime');
+    timeInput.value = `${currentHours}:${currentMinutes}`;
+
+    function updateClocks() {
+        const timeVal = timeInput.value;
+        if(!timeVal) return;
+
+        const [hours, minutes] = timeVal.split(':').map(Number);
+        
+        // Déterminer le décalage local de l'utilisateur en heures
+        const localOffsetHours = -now.getTimezoneOffset() / 60; 
+
+        // Calculer l'heure de base en UTC
+        let utcHours = hours - localOffsetHours;
+
+        function formatTime(offset) {
+            let targetHours = (utcHours + offset) % 24;
+            if (targetHours < 0) targetHours += 24;
+            return `${String(Math.floor(targetHours)).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
+
+        // Mettre à jour les blocs (Offsets fixes standards)
+        document.getElementById('timeWAT').innerText = formatTime(1);  // UTC+1
+        document.getElementById('timeCET').innerText = formatTime(1);  // UTC+1 (Simplifié hors DST)
+        document.getElementById('timeUTC').innerText = formatTime(0);  // UTC
+        document.getElementById('timeEST').innerText = formatTime(-5); // UTC-5
+    }
+
+    timeInput.addEventListener('input', updateClocks);
+    updateClocks();
+</script>
+<div class="mt-12 p-6 bg-white rounded-xl shadow-sm border border-gray-100"><h3 class="text-lg font-bold text-slate-800 mb-4"><i class="fas fa-rocket text-amber-500 mr-2"></i>Suggestions d'autres outils</h3><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <a href="convertisseur-devises.html" class="p-3 bg-gray-50 rounded-lg text-center hover:bg-amber-50 border border-gray-200 hover:border-amber-300 transition-all block">
+                <i class="fas fa-money-bill-wave text-slate-700 text-xl mb-2 block"></i>
+                <span class="text-xs font-medium text-gray-700 block truncate">Convertisseur de devises</span>
+            </a>
+            <a href="convertisseur-crypto.html" class="p-3 bg-gray-50 rounded-lg text-center hover:bg-amber-50 border border-gray-200 hover:border-amber-300 transition-all block">
+                <i class="fas fa-bitcoin text-slate-700 text-xl mb-2 block"></i>
+                <span class="text-xs font-medium text-gray-700 block truncate">Convertisseur Crypto / Fiat</span>
+            </a>
+            <a href="convertisseur-unites.html" class="p-3 bg-gray-50 rounded-lg text-center hover:bg-amber-50 border border-gray-200 hover:border-amber-300 transition-all block">
+                <i class="fas fa-ruler-combined text-slate-700 text-xl mb-2 block"></i>
+                <span class="text-xs font-medium text-gray-700 block truncate">Convertisseur d'unités</span>
+            </a>
+            <a href="calculatrice-financiere.html" class="p-3 bg-gray-50 rounded-lg text-center hover:bg-amber-50 border border-gray-200 hover:border-amber-300 transition-all block">
+                <i class="fas fa-calculator text-slate-700 text-xl mb-2 block"></i>
+                <span class="text-xs font-medium text-gray-700 block truncate">Calculatrices financières</span>
+            </a>
+            <a href="compteur-mots.html" class="p-3 bg-gray-50 rounded-lg text-center hover:bg-amber-50 border border-gray-200 hover:border-amber-300 transition-all block">
+                <i class="fas fa-file-alt text-slate-700 text-xl mb-2 block"></i>
+                <span class="text-xs font-medium text-gray-700 block truncate">Compteur de mots</span>
+            </a></div></div>    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-400 text-sm py-6 border-t border-slate-800">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="font-bold text-amber-500">Clé Connect</span> &copy; 2026 - Plateforme d'outils utilitaires gratuits.
+            </div>
+            <div class="flex gap-4">
+                <a href="presentation.html" class="hover:text-white transition-colors">À propos</a>
+                <span class="text-slate-700">|</span>
+                <span class="text-xs italic text-gray-500">Expérience fluide, directe et sans inscription.</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
